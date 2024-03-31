@@ -1,0 +1,7 @@
+- *.cc files Copied from https://github.com/vmos1/su4_dm_grid_lsd/tree/main/run_gauge_gen/run_tioga/code
+- dweofa_mobius_HSDM_v3.cc: made compatible with Grid version 03/26/24 (da59379)
+
+How to install:
+- source env.sh
+- make all
+then you will find the executable in ../bin
