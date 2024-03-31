@@ -43,7 +43,7 @@ echo "MPI_CFLAGS=${MPI_CFLAGS}"
 echo "MPI_LDFLAGS=${MPI_LDFLAGS}"
 #----------------------------------------------------------
 # The directory containing the build scripts, this script and the src/ tree
-TOPDIR=`pwd`
+TOPDIR=`pwd -P`
 
 # Install directory
 INSTALLDIR=${TOPDIR}/install

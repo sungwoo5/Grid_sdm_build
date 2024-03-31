@@ -34,6 +34,7 @@ ${SRCDIR}/Grid/configure \
 	 --enable-accelerator=hip \
 	 --enable-gen-simd-width=64  \
 	 --enable-simd=GPU \
+	 --enable-openmp \
 	 --enable-accelerator-cshift \
 	 --enable-Nc=${Nc} \
 	 --disable-gparity \
