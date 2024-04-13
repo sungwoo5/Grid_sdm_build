@@ -16,7 +16,6 @@ APP="$GRID_DIR/install/gauge_gen_Nc4/bin/dweofa_mobius_HSDM_v3"
 # if not used, only one gpu will be used
 export MPICH_GPU_SUPPORT_ENABLED=1 
 
-export MPICH_SMP_SINGLE_COPY_MODE=CMA
 export MPICH_OFI_NIC_POLICY=GPU
 
 OPTIONS="--decomposition  --comms-concurrent --comms-overlap --debug-mem  --shm 2048 --shm-mpi 1"

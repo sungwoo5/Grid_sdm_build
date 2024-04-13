@@ -8,7 +8,7 @@ APP="$GRID_DIR/install/Grid_omp_Nc4/bin/Benchmark_dwf_fp32"
 # if not used, only one gpu will be used
 export MPICH_GPU_SUPPORT_ENABLED=1 
 
-export MPICH_SMP_SINGLE_COPY_MODE=CMA
+# export MPICH_SMP_SINGLE_COPY_MODE=CMA # Mark (HPE)  suggested to remove this
 export MPICH_OFI_NIC_POLICY=GPU
 
 # OPTIONS="--decomposition  --dslash-unroll --comms-concurrent --comms-overlap" # failed
