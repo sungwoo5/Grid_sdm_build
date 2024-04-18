@@ -3,7 +3,6 @@ freeze/*
 */ckpoint*
 *.log.*
 *~
-run_dweofa_mobius_HSDM_6448
-run_dweofa_mobius_HSDM_tmp
+run_dweofa_mobius_HSDM_*
 */*core
 */ckpoint*

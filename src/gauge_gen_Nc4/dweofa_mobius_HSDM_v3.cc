@@ -1,5 +1,6 @@
 // v3: 033024 sungwoo
 //     made compatible with Grid version 03/26/24 (da59379)
+// 041224 sungwoo: time anti-periodic BC
 
 /*************************************************************************************
 
@@ -173,14 +174,14 @@ int main(int argc, char **argv) {
   RealD c   = MyParams.Mobius.c; //  1./2.;
 
   // These lines are unecessary if BC are all periodic
-  //std::vector<Complex> boundary = {1,1,1,-1};
-  //FermionAction::ImplParams Params(boundary);
-  
+  std::cout << GridLogMessage << "boundary condition {1,1,1,-1}" << std::endl;
+  std::vector<Complex> boundary = {1,1,1,-1};
+  FermionAction::ImplParams Params(boundary);
 
   ConjugateGradient<FermionField>  CG(MyParams.Mobius.StoppingCondition,MyParams.Mobius.MaxCGIterations);
   // DJM: setup for EOFA ratio (Mobius)
-  MobiusEOFAFermionD Strange_Op_L(U, *FGrid, *FrbGrid, *GridPtr, *GridRBPtr, mass,     mass, pv,  0.0, -1, M5, b, c);
-  MobiusEOFAFermionD Strange_Op_R(U, *FGrid, *FrbGrid, *GridPtr, *GridRBPtr, pv, mass, pv, -1.0,  1, M5, b, c);
+  MobiusEOFAFermionD Strange_Op_L(U, *FGrid, *FrbGrid, *GridPtr, *GridRBPtr, mass, mass, pv,  0.0, -1, M5, b, c, Params);
+  MobiusEOFAFermionD Strange_Op_R(U, *FGrid, *FrbGrid, *GridPtr, *GridRBPtr, pv,   mass, pv, -1.0,  1, M5, b, c, Params);
   ExactOneFlavourRatioPseudoFermionAction<FermionImplPolicy> EOFA(Strange_Op_L, Strange_Op_R, CG, OFRp, true);
     
 //   FermionAction DenOp(U,*FGrid,*FrbGrid,*GridPtr,*GridRBPtr,mass,M5,b,c, Params);
