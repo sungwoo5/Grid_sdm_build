@@ -1,0 +1,55 @@
+[041924 sungwoo]
+Recommended way of running MPI job is "lrun" according to https://hpc.llnl.gov/documentation/tutorials/using-lc-s-sierra-systems. 
+- Following 1-node example shows the details including the environment variables; -vvv flag. 
+-  The js_task_info utility provides an easy way to see exactly how tasks and threads are being bound. Simply run js_task_info with lrun or jsrun as you would your application.
+- It already has all the GPU and OMP thread bindings. For safety, we can add -g 1 not to oversubscribe GPUs. 
+- Note that each thread on an SMT4 core counts as a "cpu" (4*44 cores = 176 cpus) in the output, and that the first 8 "cpus" [0-7] are reserved for core isolation. -> so there are total 40 cpus (and omp threads) in the following.
+
+
+
+[park49@lassen35:lassen]$ lrun -N 1 -n 4  -vvv js_task_info
++ export JSM_JSRUN_NO_WARN_OVERSUBSCRIBE=1
++ exec /usr/tce/packages/jsrun/jsrun-2020.03.05/bin/jsrun --np 4 --nrs 1 -c ALL_CPUS -g ALL_GPUS -d plane:4 -b rs -X 1 -vvv /usr/tce/packages/lrun/lrun-2020.03.05/bin/mpibind10 js_task_info
++ Examining 'js_task_info' RPATH ''
++ export CUDA_CACHE_PATH=/var/tmp/park49/nvComputeCache
++ export LLNL_COREDUMP_FORMAT_CPU=lwcore
++ export LLNL_COREDUMP_FORMAT_GPU=lwcore
++ export LLNL_COREDUMP_WAIT_FOR_OTHERS=60
++ export OMPI_MCA_backtrace_lwcore_enable=1
++ export OMPI_MCA_backtrace_lwcore_command=/usr/tce/packages/jsrun/jsrun-2020.03.05/bin/scripts/llnl_manage_coredumps
++ export OMPI_MCA_ess_base_forward_signals=6,10,11,12,14,18,21
++ export CUDA_ENABLE_COREDUMP_ON_EXCEPTION=1
++ export CUDA_ENABLE_CPU_COREDUMP_ON_EXCEPTION=1
++ export CUDA_COREDUMP_FILE=/tmp/cuda_core_6403933.%p
++ export CUDA_ENABLE_LIGHTWEIGHT_COREDUMP=1
++ ulimit -Sc 0
++ exec /opt/ibm/spectrum_mpi/jsm_pmix/bin/jsrun --np 4 --nrs 1 -c ALL_CPUS -g ALL_GPUS -d plane:4 -b rs -X 1 /usr/tce/packages/lrun/lrun-2020.03.05/bin/mpibind10 js_task_info
+Task 0 ( 0/4, 0/4 ) is bound to cpu[s] 8,12,16,20,24,28,32,36,40,44 on host lassen35 with OMP_NUM_THREADS=10 and with OMP_PLACES={8},{12},{16},{20},{24},{28},{32},{36},{40},{44} and CUDA_VISIBLE_DEVICES=0
+Task 2 ( 2/4, 2/4 ) is bound to cpu[s] 96,100,104,108,112,116,120,124,128,132 on host lassen35 with OMP_NUM_THREADS=10 and with OMP_PLACES={96},{100},{104},{108},{112},{116},{120},{124},{128},{132} and CUDA_VISIBLE_DEVICES=2
+Task 3 ( 3/4, 3/4 ) is bound to cpu[s] 136,140,144,148,152,156,160,164,168,172 on host lassen35 with OMP_NUM_THREADS=10 and with OMP_PLACES={136},{140},{144},{148},{152},{156},{160},{164},{168},{172} and CUDA_VISIBLE_DEVICES=3
+Task 1 ( 1/4, 1/4 ) is bound to cpu[s] 48,52,56,60,64,68,72,76,80,84 on host lassen35 with OMP_NUM_THREADS=10 and with OMP_PLACES={48},{52},{56},{60},{64},{68},{72},{76},{80},{84} and CUDA_VISIBLE_DEVICES=1
+
+
+[park49@lassen35:lassen]$ lscpu
+Architecture:          ppc64le
+Byte Order:            Little Endian
+CPU(s):                176
+On-line CPU(s) list:   0-175
+Thread(s) per core:    4
+Core(s) per socket:    22
+Socket(s):             2
+NUMA node(s):          6
+Model:                 2.1 (pvr 004e 1201)
+Model name:            POWER9, altivec supported
+CPU max MHz:           3800.0000
+CPU min MHz:           2300.0000
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              512K
+L3 cache:              10240K
+NUMA node0 CPU(s):     0-87
+NUMA node8 CPU(s):     88-175
+NUMA node252 CPU(s):
+NUMA node253 CPU(s):
+NUMA node254 CPU(s):
+NUMA node255 CPU(s):

@@ -1,5 +1,6 @@
-GRID=../build_grid_omp_Nc4
-CONFIG=$(GRID)/grid-config
+#GRID=../build_grid_omp_Nc4
+GRID=../../install/Grid_omp_Nc4
+CONFIG=$(GRID)/bin/grid-config
 CXX=$(shell $(CONFIG) --cxx)
 CXXFLAGS=$(shell $(CONFIG) --cxxflags)
 LDFLAGS=$(shell $(CONFIG) --ldflags)
