@@ -1,0 +1,16 @@
+ptxas /tmp/tmpxft_0000a2dc_00000000-6_Gamma3pt.ptx, line 24310; error   : Entry function '_ZN4Grid11LambdaApplyIZNS_7LatticeINS_7iScalarINS2_INS2_INS_9Grid_simdIN6thrust7complexIdEENS_9GpuVectorILi2ENS_10GpuComplexI7double2EEEEEEEEEEEEEaSINS_10UnaryTraceENS_23LatticeBinaryExpressionINS_9BinaryMulENSJ_ISK_NSJ_ISK_NS2_INS_7iMatrixINSL_IS6_Li4EEELi4EEEEENS1_INS2_INSL_INSL_ISC_Li4EEELi4EEEEEEEEENS_5GammaEEESS_EEEERSG_RKNS_22LatticeUnaryExpressionIT_T0_EEEUlmmmE_EEvmmmT_' uses too much parameter space (0x1110 bytes, 0x1100 max).
+ptxas fatal   : Ptx assembly aborted due to errors
+make[2]: *** [Makefile:1537: Modules/MContraction/Gamma3pt.o] Error 255
+
+
+
+
+
+Call parameter type does not match function signature!
+i8** null
+ i8*  %call10 = call i32 null(void (i8*)* null, i8* null, i8** null), !dbg !155
+Call parameter type does not match function signature!
+i8** null
+ i8*  %call60 = call i32 null(void (i8*)* null, i8* null, i8** null), !dbg !204
+<unnamed>: parse Invalid record (Producer: 'LLVM7.0.1' Reader: 'LLVM 7.0.1')
+-> this was for Hadrons/VirtualMachines.o

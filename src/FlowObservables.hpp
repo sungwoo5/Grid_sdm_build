@@ -140,6 +140,16 @@ void TFlowObservables<GImpl>::execute(void)
     flow_result[6].description = "Real part of Polyakov loop";
     flow_result[7].description = "Imaginary part of Polyakov loop";
 
+    // put t=0 data (before the flow)
+    flow_result[0].data.push_back(0);
+    flow_result[1].data.push_back(0);
+    flow_result[2].data.push_back(0);
+    flow_result[3].data.push_back(WilsonLoops<GImpl>::TopologicalCharge(U));
+    flow_result[4].data.push_back(WilsonLoops<GImpl>::avgPlaquette(U));
+    flow_result[5].data.push_back(WilsonLoops<GImpl>::avgRectangle(U));
+    flow_result[6].data.push_back(WilsonLoops<GImpl>::avgPolyakovLoop(U).real());
+    flow_result[7].data.push_back(WilsonLoops<GImpl>::avgPolyakovLoop(U).imag());
+	
     WilsonFlow<PeriodicGimplR> wflow(par().epsilon, par().Nstep, 1);
     wflow.resetActions();
 
