@@ -41,14 +41,26 @@ mkdir -p ${RUNDIR}
 if [  ${VOL} == "248" ]; then
     CFGPATH="/p/lustre1/park49/SU4_sdm/run_gauge_conf/conf_nc4nf1_${LABEL}"
 
-    # copy flux.sh
-    cp -a base/flux_248.sh ${RUNDIR}/flux.sh
+    # # copy flux.sh
+    # cp -a base/flux_248.sh ${RUNDIR}/flux.sh
+    
+    for CONFSTART in $(seq ${i_traj} 400 $((${f_traj}-1))); do
+	OUT=${RUNDIR}/flux_$CONFSTART.sh
+	cp -a base/flux_248_8jobs.sh $OUT
+	sed -i 's/INIT/'$CONFSTART'/g' $OUT
+    done
 
 elif [  ${VOL} == "328" ]; then
     CFGPATH="/p/lustre2/park49/SU4_sdm/run_gauge_conf/conf_nc4nf1_${LABEL}"
 
-    # copy flux.sh
-    cp -a base/flux_328.sh ${RUNDIR}/flux.sh
+    # # copy flux.sh
+    # cp -a base/flux_328.sh ${RUNDIR}/flux.sh
+
+    for CONFSTART in $(seq ${i_traj} 200 $((${f_traj}-1))); do
+	OUT=${RUNDIR}/flux_$CONFSTART.sh
+	cp -a base/flux_328_4jobs.sh $OUT
+	sed -i 's/INIT/'$CONFSTART'/g' $OUT
+    done
 
 fi
 if [ -d "$CFGPATH" ]; then
